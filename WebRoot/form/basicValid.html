@@ -1,0 +1,85 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>基础表单验证</title>
+	<link href="../assets/css/bs3/dpl.css" rel="stylesheet" type="text/css" />
+	<link href="../assets/css/bs3/bui.css" rel="stylesheet" type="text/css" />
+	<link href="../assets/css/page-min.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="span16">
+				<h2>示例</h2>
+				<form id="J_Form" action="" class="row">
+					<div class="span16">
+						<div class="well">
+							<label>必填项(required:true)：</label>
+							<input name="a" data-rules="{required:true}" type="text">
+						</div>
+						<div class="well">
+							<label>最大值(max:100)：</label>
+							<input name="b" data-rules="{max:100}" type="text">
+						</div>
+						<div class="well">
+							<label>最小值(min:10)：</label>
+							<input name="c" data-rules="{min:10}" type="text">
+						</div>
+						<div class="well">
+							<label>最小长度(minlength:5)：</label>
+							<input name="d" data-rules="{minlength:5}" type="text">
+						</div>
+						<div class="well">
+							<label>最大长度(maxlength:5)：</label>
+							<input name="e" data-rules="{maxlength:5}" type="text">
+						</div>
+						<div class="well">
+							<p>两次输入验证(equalTo)：</p>
+							<label>密码：</label>
+							<input id="f1" name="f1" type="text"><br /><br />
+							<label>确认密码：</label>
+							<input name="f2" data-rules="{equalTo:'#f1'}" type="text">
+						</div>
+						<div class="well">
+							<label>数字值(number:true)：</label>
+							<input name="g" data-rules="{number:true}" type="text">
+						</div>
+						<div class="well">
+							<label>日期(date:true)：</label>
+							<input class="calendar" name="h" data-rules="{date:true}" type="text">
+						</div>
+						<div class="well">
+							<label>最小日期({minDate:'2016-04-01')：</label>
+							<input class="calendar" name="k" data-rules="{minDate:'2016-04-01'}" type="text">
+						</div>
+						<div class="well">
+							<label>最大日期(maxDate:'2016-05-01')：</label>
+							<input class="calendar" name="l" data-rules="{maxDate:'2016-05-01'}" type="text">
+						</div>
+						<div class="well">
+							<label>邮箱(email:true)：</label>
+							<input name="i" data-rules="{email:true}" type="text">
+						</div>
+						<div class="well">
+							<label>正则表达式(regexp:/^\d+$/)：</label>
+							<input name="j" data-rules="{regexp:/^\d+$/}" type="text">
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript" src="../assets/js/jquery-2.1.1.min.js"></script>
+	<script type="text/javascript" src="../assets/js/bui-min.js"></script>
+	<script type="text/javascript" src="../assets/js/config-min.js"></script>
+	<script type="text/javascript">
+		BUI.use('common/page');
+		BUI.use('bui/form', function(Form) {
+			new Form.Form({
+				srcNode : '#J_Form'
+			}).render();
+		});
+	</script>
+<body>
+</html>

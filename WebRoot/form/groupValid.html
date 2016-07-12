@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>分组验证规则</title>
+	<link href="../assets/css/bs3/dpl.css" rel="stylesheet" type="text/css" />
+	<link href="../assets/css/bs3/bui.css" rel="stylesheet" type="text/css" />
+	<link href="../assets/css/page-min.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="span16">
+				<h2>表单分组的验证规则</h2>
+				<p>多个字段的验证，需要添加在表单分组上</p>
+				<form id="J_Form" class="form-horizontal well">
+					<div class="control-group">
+						<label class="control-label">日期范围：</label>
+						<div class="bui-form-group controls" data-rules="{dateRange : true}">
+							<input name="start" type="text" class="calendar" />
+							 - 
+							<input name="end" type="text" class="calendar" />
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label">年龄范围：</label>
+						<div class="bui-form-group controls" data-rules="{numberRange : {equals:false}}"
+							data-messages="{numberRange:'结束年龄必须大于起始年龄！'}">
+							<input name="start" type="number" class="input-small" />
+							 - 
+							<input name="end" type="number" class="input-small" />
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript" src="../assets/js/jquery-2.1.1.min.js"></script>
+	<script type="text/javascript" src="../assets/js/bui-min.js"></script>
+	<script type="text/javascript" src="../assets/js/config-min.js"></script>
+	<script type="text/javascript">
+		BUI.use('common/page');
+		BUI.use('bui/form', function(Form) {
+			new Form.HForm({
+				srcNode : '#J_Form'
+			}).render();
+		});
+	</script>
+<body>
+</html>

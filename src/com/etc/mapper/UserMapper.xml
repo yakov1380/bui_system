@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.etc.dao.UserDAO">
+	<!-- 查找所有用户 -->
+	<select id="getAllUsers" resultType="user">
+		select * from bui_user
+	</select>
+	
+	<!-- 统计数量 -->
+	<select id="getTotalUsers" resultType="int">
+		select count(1) from bui_user
+		<include refid="whereConstant" />
+	</select>
+	
+	<!-- 查询满足条件的用户信息 -->
+	<select id="getUsersPager" resultType="user">
+		select * from bui_user
+		<include refid="whereConstant" />
+		limit #{start}, #{limit}
+	</select>
+	
+	<!-- 查询条件 -->
+	<sql id="whereConstant">
+		<trim prefix="where" prefixOverrides="and">
+			<if test="uid != null">
+				and uid=#{uid}
+			</if>
+			<if test="uname != null and uname != ''">
+				and uname like concat("%", #{uname}, "%")
+			</if>
+			<if test="pname != null and pname != ''">
+				and pname like concat("%", #{pname}, "%")
+			</if>
+			<if test="sex != -1">
+				and sex=#{sex}
+			</if>
+			<if test="birthday != null and birthday != ''">
+				and birthday <![CDATA[<=]]> #{birthday}
+			</if>
+		</trim>
+	</sql>
+	
+	<!-- 根据编号获取用户详细信息 -->
+	<select id="getUserById" resultType="user">
+		select * from bui_user where uid=#{uid}
+	</select>
+	
+	<!-- 添加用户 -->
+    <insert id="addUser" parameterType="user">
+        insert into bui_user(uname, upwd, pname, sex, age, birthday, account, phone, address) 
+        values(#{uname}, #{upwd}, #{pname}, #{sex}, #{age}, #{birthday}, #{account}, #{phone}, #{address})
+    </insert>
+    
+	<!-- 编辑用户 -->
+    <update id="editUser" parameterType="user">
+        update bui_user set uname=#{uname}, pname=#{pname}, sex=#{sex}, age=#{age}, 
+        birthday=#{birthday}, account=#{account}, phone=#{phone}, address=#{address}
+        where uid=#{uid}
+    </update>
+    
+	<!-- 批量删除用户 -->
+	<delete id="delUsers" parameterType="Integer">
+		delete from bui_user where uid in 
+		<foreach item="uid" collection="array" open="(" separator="," close=")">
+			#{uid}
+		</foreach>
+	</delete>
+</mapper>

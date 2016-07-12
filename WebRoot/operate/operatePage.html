@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>通过调用API的方式</title>
+	<!-- 引入BUI所需的外部CSS样式 -->
+	<link href="../assets/css/bs3/dpl.css" rel="stylesheet" type="text/css" />
+	<link href="../assets/css/bs3/bui.css" rel="stylesheet" type="text/css" />
+	<link href="../assets/css/page-min.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+	<h1>常见操作页面</h1>
+	<br>
+	<h2>通过调用API的方式</h2>
+	&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" id="J_OpenById">打开左侧菜单中已经配置的页面</a><br>
+	&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" id="J_OpenByNewId">打开左侧菜单中未配置的页面</a><br>
+	&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" id="J_OpenBaidu">打开链接(百度)</a><br>
+	&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" id="J_CloseSelf">关闭本页面</a><br>
+	&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" id="J_CloseById">关闭其它页面</a><br>
+	&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" id="J_Reload">刷新本页面</a><br>
+	&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" id="J_ReloadById">刷新其它页面</a><br>
+	&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" id="J_ChangeTitle">修改Tab标题</a><br>
+
+	<!-- 引入BUI所需的外部JS文件 -->
+	<script type="text/javascript" src="../assets/js/jquery-2.1.1.min.js"></script>
+	<script type="text/javascript" src="../assets/js/bui.js"></script>
+	<script type="text/javascript" src="../assets/js/config.js"></script>
+	<script type="text/javascript">
+		// 引入Page模块
+		BUI.use('common/page');
+		// 定义点击事件
+		// 打开左侧菜单中已经配置的页面
+		$('#J_OpenById').click(function(e) {
+			e.preventDefault(); // 阻止默认事件
+			if(top.topManager) {
+				// 执行打开操作
+				top.topManager.openPage({
+					id : 'configPage'
+				});
+			}
+		});
+		// 打开左侧菜单中未配置的页面
+		$('#J_OpenByNewId').click(function(e) {
+			e.preventDefault(); // 阻止默认事件
+			if(top.topManager) {
+				// 执行打开操作
+				top.topManager.openPage({
+					id : 'noconfigPage',
+					href : '../operate/noconfigPage.html',
+					title : '未配置的页面'
+				});
+			}
+		});
+		// 打开链接(百度)
+		$('#J_OpenBaidu').click(function(e) {
+			e.preventDefault(); // 阻止默认事件
+			if(top.topManager) {
+				// 执行打开操作
+				top.topManager.openPage({
+					id : 'baidu',
+					href : 'http://www.baidu.com',
+					title : '百度首页'
+				});
+			}
+		});
+		
+		// 关闭本页面
+		$('#J_CloseSelf').click(function(e) {
+			e.preventDefault(); // 阻止默认事件
+			top.topManager.closePage(); // closeable:false 的页面也是可以关闭
+		});
+		// 关闭其它页面
+		$('#J_CloseById').click(function(e) {
+			e.preventDefault(); // 阻止默认事件
+			top.topManager.closePage('configPage');
+		});
+		// 刷新本页面
+		$('#J_Reload').click(function(e) {
+			e.preventDefault(); // 阻止默认事件
+			top.topManager.reloadPage();
+		});
+		// 刷新其它页面
+		$('#J_ReloadById').click(function(e) {
+			e.preventDefault(); // 阻止默认事件
+			top.topManager.reloadPage('configPage');
+		});
+		// 修改Tab标题
+		$('#J_ChangeTitle').click(function(e) {
+			e.preventDefault(); // 阻止默认事件
+			top.topManager.setPageTitle("新的标题");
+			top.topManager.setPageTitle("configPage新的标题", 'configPage');
+		});
+		
+	</script>
+</body>
+</html>

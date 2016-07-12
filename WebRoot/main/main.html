@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>BUI 管理系统</title>
+	<!-- 引入BUI所需的外部CSS样式 -->
+	<link href="../assets/css/bs3/dpl.css" rel="stylesheet" type="text/css" />
+	<link href="../assets/css/bs3/bui.css" rel="stylesheet" type="text/css" />
+	<link href="../assets/css/main-min.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+	<!-- 系统页面的头部内容 -->
+	<div class="header">
+		<!-- 头部左侧title部分 -->
+		<div class="dl-title">
+			<a href="#" title="BUI">
+				<span class="lp-title-port">BUI</span>
+				<span class="dl-title-text">后台管理系统</span>
+			</a>
+		</div>
+		<!-- 头部右侧用户信息及功能 -->
+		<div class="dl-log">
+			欢迎您，
+			<span class="dl-log-user">yakov</span>
+			<a href="#" title="退出系统" class="dl-log-quit">[退出]</a>
+			<a href="http://www.builive.com/docs/api/index.html" title="API文档库" target="_blank" class="dl-log-quit">API</a>
+		</div>
+	</div>
+
+	<!-- 系统页面的正文内容 -->
+	<div class="content">
+		<div class="dl-main-nav">
+			<!-- 背景样式 -->
+			<div class="dl-inform">
+				<div class="dl-inform-title"></div>
+			</div>
+			<!-- 顶部导航 -->
+			<ul id="J_Nav" class="nav-list ks-clear">
+				<li class="nav-item dl-selected">
+					<div class="nav-item-inner nav-home">首页展示</div>
+				</li>
+				<li class="nav-item">
+					<div class="nav-item-inner nav-order">用户管理系统</div>
+				</li>
+				<li class="nav-item">
+					<div class="nav-item-inner nav-marketing">图表模块</div>
+				</li>
+			</ul>
+		</div>
+		<ul id="J_NavContent" class="dl-tab-conten"></ul>
+	</div>
+
+	<!-- 系统页面的底部信息 -->
+	<div style="text-align:center">
+		<p>
+			<a href="#" target="_blank">XXXXXXX</a>
+		</p>
+	</div>
+
+	<!-- 引入BUI所需的外部JS文件 -->
+	<script type="text/javascript" src="../assets/js/jquery-2.1.1.min.js"></script>
+	<script type="text/javascript" src="../assets/js/bui.js"></script>
+	<script type="text/javascript" src="../assets/js/config.js"></script>
+	<script type="text/javascript">
+		/*引入框架页首页代码*/
+		BUI.use('common/main', function() {
+			// 菜单模块，按顺序对应导航菜单
+			var config = [{
+				id : 'main',
+				// homePage : 'grid',
+				// 二级菜单的集合
+				menu : [{
+					text : '欢迎页',
+					collapsed: true,
+					items : [
+								{id:'index', text:'欢迎页', href:'indexPage.html', closeable : false}
+							]
+				}, {
+					text : '常见操作',
+					collapsed: true,
+					// 三级菜单集合
+					items : [
+						{id:'operate', text:'API方式', href:'../operate/operatePage.html'},
+						{id:'operateByPro', text:'属性配置', href:'../operate/operatePageByPro.html'},
+						{id:'configPage', text:'configPage', href:'../operate/configPage.html'}
+					]
+				}, {
+					text : '表单验证提交',
+					collapsed: true,
+					items : [
+						{id:'formexample', text:'表单示例', href:'../form/formexample.html'},
+						{id:'basicValid', text:'基本验证', href:'../form/basicValid.html'},
+						{id:'groupValid', text:'分组验证', href:'../form/groupValid.html'},
+						{id:'customValidRule', text:'自定义验证规则', href:'../form/customValidRule.html'},
+						{id:'customValidFunc', text:'自定义验证函数', href:'../form/customValidFunc.html'},
+						{id:'remote', text:'远程调用', href:'../form/remote.html'}
+					]
+				}, {
+					text : '搜索页面',
+					collapsed: true,
+					items : [
+						{id:'grid', text:'可编辑表格', href:'../search/grid.html'},
+						{id:'dialog-grid', text:'弹窗编辑', href:'../search/dialog-grid.html'},
+						{id:'searchexample', text:'搜索页示例', href:'../search/searchexample.html'}
+					]
+				}]
+			}, {
+				id : 'mysys',
+				homePage : 'usersList',
+				menu : [{
+					text : '用户管理',
+					collapsed: false,
+					items : [
+								{id:'usersList', text:'用户列表', href:'../user/usersList.html'}
+							]
+				}]
+			}];
+
+			// 初始化主页菜单
+			new PageUtil.MainPage({
+				modulesConfig : config
+			});
+		});
+	</script>
+</body>
+</html>

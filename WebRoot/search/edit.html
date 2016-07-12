@@ -1,0 +1,77 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>编辑学生信息</title>
+	<link href="../assets/css/bs3/dpl.css" rel="stylesheet" type="text/css" />
+	<link href="../assets/css/bs3/bui.css" rel="stylesheet" type="text/css" />
+	<link href="../assets/css/page-min.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+	<div class="container">
+		<form id="J_Form" class="form-horizontal" action="success.html">
+			<h3>基本信息</h3>
+			<div class="row">
+				<div class="control-group span12">
+					<label class="control-label"><s>*</s>学生编号：</label>
+					<div class="controls">
+						<input name="sid" type="text" class="control-text" data-rules="{required:true}" readonly>
+					</div>
+				</div>
+				<div class="control-group span12">
+					<label class="control-label"><s>*</s>学生姓名：</label>
+					<div class="controls">
+						<input name="sname" type="text" class="control-text" data-rules="{required:true}">
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="control-group span12">
+					<label class="control-label"><s>*</s>性别：</label>
+					<div class="controls">
+						<select data-rules="{required:true}" name="sex" >
+							<option value="0">男</option>
+							<option value="1">女</option>
+						</select>
+					</div>
+				</div>
+				<div class="control-group12 span12">
+					<label class="control-label"><s>*</s>入学日期：</label>
+					<div class="controls">
+						<input name="starttime" type="text" class="calendar" data-rules="{required:true}">
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="control-group span12">
+					<label class="control-label"><s>*</s>家庭住址：</label>
+					<div class="controls">
+						<input name="address" type="text" class="span8 span-width control-text" data-rules="{required:true}">
+					</div>
+				</div>
+			</div>
+			<hr />
+			<div class="row">
+				<div class="form-actions offset3">
+					<button type="submit" class="button button-primary">保存</button>
+					<button type="reset" class="button">重置</button>
+				</div>
+			</div>
+		</form>
+	</div>
+	<script type="text/javascript" src="../assets/js/jquery-2.1.1.min.js"></script>
+	<script type="text/javascript" src="../assets/js/bui-min.js"></script>
+	<script type="text/javascript" src="../assets/js/config-min.js"></script>
+	<script type="text/javascript">
+		BUI.use('common/page');
+		BUI.use('bui/form', function(Form) {
+			var form = new Form.HForm({
+				srcNode : '#J_Form'
+			}).render();
+			
+			var record = {"sid":"122","sname":"刘牛","sex":"1","starttime":337358800000,"grade":"开发五","address":"福建省厦门市软件园二期观日路2号"};
+			form.set('initRecord', record);
+		});
+	</script>
+<body>
+</html>

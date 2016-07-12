@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jee="http://www.springframework.org/schema/jee" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+						http://www.springframework.org/schema/beans/spring-beans.xsd
+						http://www.springframework.org/schema/tx
+						http://www.springframework.org/schema/tx/spring-tx.xsd 
+				      	http://www.springframework.org/schema/context  
+				       	http://www.springframework.org/schema/context/spring-context.xsd
+				       	http://www.springframework.org/schema/aop
+				       	http://www.springframework.org/schema/aop/spring-aop.xsd">
+	<!-- 自动扫描 -->
+	<context:component-scan base-package="com.etc.service" />
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource" 
+	    p:driverClassName="com.mysql.jdbc.Driver"
+	    p:url="jdbc:mysql://localhost:3306/test"
+	    p:username="root"
+	    p:password="root">
+	</bean>
+	<!-- sqlSessionFactory -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+	    <!-- 指定sqlSessionFactory的数据源 -->
+	    <property name="dataSource" ref="dataSource" />
+	    <!-- mybatis配置文件路径 -->
+	    <property name="configLocation" value="classpath:config/mybatis-config.xml"></property>
+	    <!-- 映射文件路径 -->
+	    <property name="mapperLocations">
+	        <list>
+	            <value>classpath*:com/etc/mapper/*.xml</value>
+	        </list>
+	    </property>
+	</bean>
+	<!-- spring和mybatis整合 -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+	    <property name="basePackage" value="com.etc.dao"></property>
+	    <property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+	</bean>
+	
+	<!-- 事务管理器 -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager" p:dataSource-ref="dataSource" />
+	<!-- 事务配置 -->
+	<tx:advice transaction-manager="transactionManager" id="txAdivce">
+	    <tx:attributes>
+	        <tx:method name="*" rollback-for="RuntimException"/>
+	    </tx:attributes>
+	</tx:advice>
+	<!-- 配置事务的切面 -->
+	<aop:config>
+	    <!-- 事务配置在service层 -->
+	    <aop:pointcut expression="execution(public * com.etc.service..*.*(..))" id="aopPoint"/>
+	    <aop:advisor advice-ref="txAdivce" pointcut-ref="aopPoint"/>
+	</aop:config>
+</beans>

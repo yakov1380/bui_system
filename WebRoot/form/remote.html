@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>表单远程调用</title>
+	<link href="../assets/css/bs3/dpl.css" rel="stylesheet" type="text/css" />
+	<link href="../assets/css/bs3/bui.css" rel="stylesheet" type="text/css" />
+	<link href="../assets/css/page-min.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="span16">
+				<h2>异步请求</h2>
+				<p>输入学生编号，获取学生信息。</p>
+				<form id="J_Form" action="" class="row">
+					<div class="span16">
+						<div class="well">
+							<label>学生编号：</label>
+							<input name="sid" data-rules="{required:true,length:5}" type="text">
+						</div>
+						<div id="info" class="well"></div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript" src="../assets/js/jquery-2.1.1.min.js"></script>
+	<script type="text/javascript" src="../assets/js/bui-min.js"></script>
+	<script type="text/javascript" src="../assets/js/config-min.js"></script>
+	<script type="text/javascript">
+		BUI.use('common/page');
+		BUI.use('bui/form', function(Form) {
+
+			var f = new Form.Form({
+				srcNode : '#J_Form'
+			}).render();
+
+			var field = f.getField('sid');
+			field.set('remote', {
+				url : '../data/getstubysid.jsp',
+				dataType : 'json',
+				callback : function(data) {
+					$('#info').text(BUI.JSON.stringify(data));
+				}
+			});
+		});
+	</script>
+<body>
+</html>

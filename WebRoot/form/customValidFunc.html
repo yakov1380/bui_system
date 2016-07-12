@@ -1,0 +1,67 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>自定义验证函数</title>
+	<link href="../assets/css/bs3/dpl.css" rel="stylesheet" type="text/css" />
+	<link href="../assets/css/bs3/bui.css" rel="stylesheet" type="text/css" />
+	<link href="../assets/css/page-min.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			<h2>自定义验证函数</h2><br />
+			<div class="span16">
+				<h2>单个字段验证</h2>
+				<form id="J_Form1" class="well">
+					<div>
+						<label>学生编号：</label><input name="studentId" type="text">
+					</div>
+				</form>
+				<h2>多个字段验证</h2>
+				<form id="J_Form2" class="well">
+					<div id="group" class="bui-form-group">
+						<label>起始日期：</label>
+						<input name="start" class="calendar" type="text">
+						<label>&nbsp;-&nbsp;</label>
+						<input name="end" class="calendar" type="text">
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript" src="../assets/js/jquery-2.1.1.min.js"></script>
+	<script type="text/javascript" src="../assets/js/bui-min.js"></script>
+	<script type="text/javascript" src="../assets/js/config-min.js"></script>
+	<script type="text/javascript">
+		BUI.use('common/page');
+		BUI.use('bui/form', function(Form) {
+			new Form.Form({
+				srcNode : '#J_Form1',
+				validators : {
+					'studentId' : function(value) {
+						if (!value) {
+							return '学生编号不能为空';
+						}
+						if (!/^\d{5}$/.test(value)) {
+							return '学生编号为5位数字';
+						}
+					}
+				}
+			}).render();
+
+			new Form.Form({
+				srcNode : '#J_Form2',
+				//联合校验起始日期
+				validators : {
+					'#group' : function(record) {
+						if (record.start > record.end) {
+							return '结束日期必须大于起始日期！';
+						}
+					}
+				}
+			}).render();
+		});
+	</script>
+<body>
+</html>
